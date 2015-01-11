@@ -1,0 +1,21 @@
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m: In function '-[SetupViewController viewDidLoad]':
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:197: warning: 'SetupViewController' may not respond to '-update'
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:197: warning: (Messages without a matching method signature
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:197: warning: will be assumed to return 'id' and accept
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:197: warning: '...' as arguments.)
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m: In function '-[SetupViewController handleTextViewChange:]':
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:295: warning: conflicting types for '-(void)handleTextViewChange:(NSString *)passedText'
+/Users/mbordelon/Documents/BRING-IT/Classes/TextFieldViewController.h:11: warning: previous declaration of '-(void)handleTextViewChange:(NSInteger)index'
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m: In function '-[SetupViewController tableView:didSelectRowAtIndexPath:]':
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:550: warning: class 'SetupViewController' does not implement the 'DatePickerDelegate' protocol
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:567: warning: class 'SetupViewController' does not implement the 'PickerDelegate' protocol
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:590: warning: class 'SetupViewController' does not implement the 'PickerDelegate' protocol
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:609: warning: class 'SetupViewController' does not implement the 'DatePickerDelegate' protocol
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:632: warning: class 'SetupViewController' does not implement the 'PickerDelegate' protocol
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:662: warning: class 'SetupViewController' does not implement the 'PickerDelegate' protocol
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m: At top level:
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:785: warning: incomplete implementation of class 'SetupViewController'
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:785: warning: method definition for '-handleTextChange:' not found
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:785: warning: incomplete implementation of class 'SetupViewController'
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:785: warning: method definition for '-handleTextChange:' not found
+/Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.m:785: warning: class 'SetupViewController' does not fully implement the 'TextDelegate' protocol

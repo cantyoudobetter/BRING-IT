@@ -1,0 +1,9 @@
+In file included from /Users/mbordelon/Documents/BRING-IT/Classes/NutritionComponentViewController.h:17,
+                 from /Users/mbordelon/Documents/BRING-IT/Classes/NutritionComponentViewController.m:9:
+/Users/mbordelon/Documents/BRING-IT/Classes/PhaseLevelViewController.h:11: warning: duplicate declaration for protocol 'PickerDelegate'
+/Users/mbordelon/Documents/BRING-IT/Classes/NutritionComponentViewController.m: In function '-[NutritionComponentViewController tableView:accessoryTypeForRowWithIndexPath:]':
+/Users/mbordelon/Documents/BRING-IT/Classes/NutritionComponentViewController.m:410: warning: control reaches end of non-void function
+/Users/mbordelon/Documents/BRING-IT/Classes/NutritionComponentViewController.m: In function '-[NutritionComponentViewController tableView:didSelectRowAtIndexPath:]':
+/Users/mbordelon/Documents/BRING-IT/Classes/NutritionComponentViewController.m:466: warning: class 'NutritionComponentViewController' does not implement the 'TextDelegate' protocol
+/Users/mbordelon/Documents/BRING-IT/Classes/NutritionComponentViewController.m: In function '-[NutritionComponentViewController phaseLevel:]':
+/Users/mbordelon/Documents/BRING-IT/Classes/NutritionComponentViewController.m:483: warning: class 'NutritionComponentViewController' does not implement the 'PickerDelegate' protocol

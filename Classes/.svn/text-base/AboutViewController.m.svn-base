@@ -1,0 +1,113 @@
+//
+//  AboutViewController.m
+//  Bring It
+//
+//  Created by Michael Bordelon on 6/7/10.
+//  Copyright 2010 Bordelon iPhone. All rights reserved.
+//
+
+#import "AboutViewController.h"
+
+
+@implementation AboutViewController
+@synthesize verLabel;
+
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+- (void)viewDidLoad {
+	verLabel.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+	
+}
+-(IBAction)backPressed:(id)sender
+{
+	[self dismissModalViewControllerAnimated:YES];
+}
+-(IBAction)resetPressed:(id)sender
+{
+
+	UIActionSheet *actionSheet = [[UIActionSheet alloc]
+								  initWithTitle:@"Are You Sure?" 
+								  delegate:self
+								  cancelButtonTitle:@"NO" 
+								  destructiveButtonTitle:@"YES" 
+								  otherButtonTitles:nil];
+	[actionSheet showInView:self.view];
+	[actionSheet release];
+	
+}
+
+-(IBAction)updatePressed:(id)sender 
+{
+	HUD = [[MBProgressHUD alloc] initWithView:self.view];
+	
+	// Add HUD to screen
+	[self.view addSubview:HUD];
+	
+	// Regisete for HUD callbacks so we can remove it from the window at the right time
+	HUD.delegate = self;
+	
+	HUD.labelText = @"Please Wait";
+	HUD.detailsLabelText = @"updating data";
+	
+	// Show the HUD while the provided method executes in a new thread
+	[HUD showWhileExecuting:@selector(update) onTarget:self withObject:nil animated:YES];
+	
+	
+	
+	
+}
+
+-(void)update {
+	[BIUtility updateDataFromWeb];
+	
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger) buttonIndex {
+
+	if (!(buttonIndex == [actionSheet cancelButtonIndex])) {
+
+		HUD = [[MBProgressHUD alloc] initWithView:self.view];
+		
+		// Add HUD to screen
+		[self.view addSubview:HUD];
+		
+		// Regisete for HUD callbacks so we can remove it from the window at the right time
+		HUD.delegate = self;
+		
+		HUD.labelText = @"Please Wait";
+		HUD.detailsLabelText = @"resetting database";
+		
+		// Show the HUD while the provided method executes in a new thread
+		[HUD showWhileExecuting:@selector(reset) onTarget:self withObject:nil animated:YES];
+		
+		
+		
+		
+	}
+	
+}
+-(void)reset {
+	
+	[BIUtility copyDatabaseForced];
+	
+	//[self dismissModalViewControllerAnimated:YES];
+	
+}
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+
+@end

@@ -1,0 +1,73 @@
+10
+
+dir
+1
+file:///Users/mbordelon/svn_repository/build
+file:///Users/mbordelon/svn_repository
+
+
+
+2010-08-13T20:21:38.219258Z
+1
+mbordelon
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9fe8a86c-388b-4d98-89a5-00a6c24555d0
+
+release2-iphonesimulator
+dir
+
+APP-STORE-iphonesimulator
+dir
+
+APP-STORE-iphoneos
+dir
+
+AD-HOC2-iphonesimulator
+dir
+
+AD-HOC2-iphoneos
+dir
+
+Release-iphonesimulator
+dir
+
+Release-iphoneos
+dir
+
+dtest-iphonesimulator
+dir
+
+Debug-iphonesimulator
+dir
+
+Debug-iphoneos
+dir
+
+bring-it.build
+dir
+
+AD-HOC-iphonesimulator
+dir
+
+APP-STORE2-iphonesimulator
+dir
+
+AD-HOC-iphoneos
+dir
+
+APP-STORE2-iphoneos
+dir
+

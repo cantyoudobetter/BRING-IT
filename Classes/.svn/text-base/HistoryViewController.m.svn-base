@@ -1,0 +1,244 @@
+//
+//  HistoryViewController.m
+//  Bring It
+//
+//  Created by Michael Bordelon on 4/17/10.
+//  Copyright 2010 Bordelon iPhone. All rights reserved.
+//
+
+#import "HistoryViewController.h"
+
+
+@implementation HistoryViewController
+@synthesize dateList, historyList, tableIndex;
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	self.title = @"History";
+	dateList = [[BIUtility historyDateList] retain];
+	tableIndex = [[NSMutableArray alloc] init];
+	p = [[Profile alloc] init];
+	int i = 0;
+	for (NSString * date in dateList) {
+		i++;
+		[tableIndex addObject:[NSString stringWithFormat:@"%d", i]];
+	}
+	UINavigationBar *bar = [self.navigationController navigationBar];
+	bar.barStyle = UIBarStyleBlack;
+	
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[dateList release];
+	[tableIndex release];
+	tableIndex = [[NSMutableArray alloc] init];
+	
+	dateList = [[BIUtility historyDateList] retain];
+	int i = 0;
+	for (NSString * date in dateList) {
+		i++;
+		[tableIndex addObject:[NSString stringWithFormat:@"%d",i]];
+	}
+	
+	[self.tableView reloadData];
+	
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+	return tableIndex;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	//History * hist = [[historyList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+	NSInteger h;
+	if (indexPath.row > 0) {
+	NSArray * histList = [[BIUtility historyForDate:[dateList objectAtIndex:indexPath.section]] retain];
+
+	History * hist = [histList objectAtIndex:(indexPath.row - 1)];
+	
+	
+	NSString *cellText = hist.detail;
+	UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:15];
+	CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+	CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+	h =  labelSize.height + 40;
+	if (h<25) h=50;
+	[histList release];
+		
+	} else {
+		h = 50;
+	}
+	//h = 250;
+	return h;
+	
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	//History * h = [[historyList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+	UITableViewCell *cell;
+	
+	if (indexPath.row > 0) {
+		NSArray * histList = [[BIUtility historyForDate:[dateList objectAtIndex:indexPath.section]] retain];
+
+		History * h = [histList objectAtIndex:(indexPath.row-1)];
+		if ([h.type isEqualToString:@"measure.png"]) {
+			[tableView dequeueReusableCellWithIdentifier:@"HistMeasureCell"];
+			cell = [[[GradientTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+											 reuseIdentifier:@"HistMeasureCell"] autorelease];
+	
+			
+		} else {
+			[tableView dequeueReusableCellWithIdentifier:@"HistOtherCell"];
+			cell = [[[GradientTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+											 reuseIdentifier:@"HistOtherCell"] autorelease];
+			if (h.detail != nil && h.detail.length > 0) {
+				[cell.detailTextLabel setText:h.detail];
+				[cell.detailTextLabel setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+				cell.detailTextLabel.lineBreakMode = UILineBreakModeWordWrap;
+				cell.detailTextLabel.numberOfLines = 0;
+				cell.detailTextLabel.backgroundColor = [UIColor clearColor];
+			}
+		}
+		cell.imageView.image = [UIImage imageNamed:h.type];
+		[cell.textLabel setText:h.title];
+		cell.accessoryType = UITableViewCellAccessoryNone;
+		if ([h.type isEqualToString:@"workout.png"]) {
+			NSInteger woID = h.histID;
+			NSInteger detailCount = [BIUtility moveHistoryDetailCountForWorkout:woID];
+			if (detailCount > 0) {			
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			}
+		} 
+
+		
+		[histList release];
+	} else {
+		[tableView dequeueReusableCellWithIdentifier:@"EmailCell"];
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+											 reuseIdentifier:@"EmailCell"] autorelease];
+		cell.imageView.image = [UIImage imageNamed:@"email.png"];
+		[cell.textLabel setText:@"Export This Day To Email"];
+		[cell.textLabel setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+		[cell.textLabel setTextColor:[UIColor blueColor]];
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	}
+	
+	return cell;		
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if (indexPath.row == 0) {
+		NSString * body = [BIUtility blogEntryForDate:[dateList objectAtIndex:indexPath.section] OmitMeasures:NO];
+		NSString * subject = [NSString stringWithFormat:@"Fitness Data Export For %@", [dateList objectAtIndex:indexPath.section]];
+		//[[BIUtility historyForDate:[dateList objectAtIndex:indexPath.section]] objectAtIndex:(indexPath.row-1)];
+
+		
+		MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
+		controller.mailComposeDelegate = self;
+		[controller setSubject:subject];
+		[controller setMessageBody:body isHTML:YES]; 
+		[self presentModalViewController:controller animated:YES];
+		[controller release];
+		
+	
+	} else {
+		NSArray * histList = [[BIUtility historyForDate:[dateList objectAtIndex:indexPath.section]] retain];
+		History * h = [histList objectAtIndex:(indexPath.row-1)];
+		if ([h.type isEqualToString:@"workout.png"]) {
+			NSInteger woID = h.histID;
+			NSInteger detailCount = [BIUtility moveHistoryDetailCountForWorkout:woID];
+			if (detailCount > 0) {			
+				//push move list
+				MoveHistoryViewController *moveHistoryViewController = [[MoveHistoryViewController alloc]
+																		initWithNibName:@"MoveHistoryViewController"
+																		bundle:nil];
+				moveHistoryViewController.woID = h.histID;
+				moveHistoryViewController.headerTitle = h.title;
+				Bring_ItAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+				[delegate.historyNavController pushViewController:moveHistoryViewController animated:YES];
+				[moveHistoryViewController release];
+			}
+		} 
+		
+		
+		[histList release];
+	}
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+- (void)mailComposeController:(MFMailComposeViewController*)controller  
+          didFinishWithResult:(MFMailComposeResult)result 
+                        error:(NSError*)error;
+{
+	if (result == MFMailComposeResultSent) {
+		NSLog(@"It's away!");
+	}
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return [dateList count];
+	
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	
+	//return [[historyList objectAtIndex:section] count];
+	NSArray * histList = [[BIUtility historyForDate:[dateList objectAtIndex:section]] retain];
+	NSInteger count = [histList count] + 1;
+	[histList release];
+	return count;
+
+}
+
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	NSString * dateString = [dateList objectAtIndex:section];
+
+	NSDateFormatter *dateFormat = [[[NSDateFormatter alloc] init] autorelease];
+	//[dateFormat setDateStyle:NSDateFormatterLongStyle];
+	[dateFormat setDateFormat:@"EEEE', ' MMMM d"];
+	NSDate * date = [BIUtility dateFromString:dateString];
+	
+	
+	NSTimeInterval interval = [date timeIntervalSinceDate:p.startDate];
+	NSInteger days = (interval/(60*60*24)+1);
+	
+	NSString * ret = [NSString stringWithFormat:@"Day: %d - %@", days, [dateFormat stringFromDate:date]];	
+	
+	
+	return ret;
+	
+}
+
+
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	//[dateList release];
+	//[historyList release];
+	[dateList release];
+	[tableIndex release];	
+	[p release];
+    [super dealloc];
+}
+
+
+@end

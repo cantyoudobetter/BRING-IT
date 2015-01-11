@@ -1,0 +1,16 @@
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m: In function '-[BloggerViewController viewDidLoad]':
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m:74: warning: 'BloggerViewController' may not respond to '-fetchInitialBlogList'
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m:74: warning: (Messages without a matching method signature
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m:74: warning: will be assumed to return 'id' and accept
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m:74: warning: '...' as arguments.)
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m: In function '-[BloggerViewController blogListTicket:finishedWithFeed:error:]':
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m:329: warning: class 'BloggerViewController' does not implement the 'PickerDelegate' protocol
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m: At top level:
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m:765: warning: incomplete implementation of class 'BloggerViewController'
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m:765: warning: method definition for '+sharedBloggerViewController' not found
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m:765: warning: incomplete implementation of class 'BloggerViewController'
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m:765: warning: method definition for '-loggingCheckboxClicked:' not found
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m:765: warning: method definition for '-draftCheckboxClicked:' not found
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m:765: warning: method definition for '-deletePostClicked:' not found
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m:765: warning: method definition for '-updatePostClicked:' not found
+/Users/mbordelon/Documents/BRING-IT/Classes/BloggerViewController.m:765: warning: method definition for '-addPostClicked:' not found

@@ -1,0 +1,14 @@
+In file included from /Users/mbordelon/Documents/BRING-IT/Classes/NutritionComponentViewController.h:17,
+                 from /Users/mbordelon/Documents/BRING-IT/Classes/NutritionViewController.h:16,
+                 from /Users/mbordelon/Documents/BRING-IT/Classes/HistoryCalendarEditController.h:14,
+                 from /Users/mbordelon/Documents/BRING-IT/Classes/HistoryCalendarEditController.m:9:
+/Users/mbordelon/Documents/BRING-IT/Classes/PhaseLevelViewController.h:11: warning: duplicate declaration for protocol 'PickerDelegate'
+In file included from /Users/mbordelon/Documents/BRING-IT/Classes/SetupViewController.h:14,
+                 from /Users/mbordelon/Documents/BRING-IT/Classes/DatePickerViewController.h:10,
+                 from /Users/mbordelon/Documents/BRING-IT/Classes/MeasureViewController.h:12,
+                 from /Users/mbordelon/Documents/BRING-IT/Classes/HistoryCalendarEditController.h:16,
+                 from /Users/mbordelon/Documents/BRING-IT/Classes/HistoryCalendarEditController.m:9:
+/Users/mbordelon/Documents/BRING-IT/Classes/TextFieldViewController.h:10: warning: duplicate declaration for protocol 'TextDelegate'
+/Users/mbordelon/Documents/BRING-IT/Classes/HistoryCalendarEditController.m:253: warning: incomplete implementation of class 'HistoryCalendarEditController'
+/Users/mbordelon/Documents/BRING-IT/Classes/HistoryCalendarEditController.m:253: warning: method definition for '-handleTextChange:' not found
+/Users/mbordelon/Documents/BRING-IT/Classes/HistoryCalendarEditController.m:253: warning: class 'HistoryCalendarEditController' does not fully implement the 'TextDelegate' protocol
